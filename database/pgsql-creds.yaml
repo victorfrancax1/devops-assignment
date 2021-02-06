@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pgsql-db-creds
+type: Opaque
+data:
+  username: bXl1c2VybmFtZQ== 
+  password: cGFzc3dvcmQxMjM=
+  database: bnljX2RhdGE=

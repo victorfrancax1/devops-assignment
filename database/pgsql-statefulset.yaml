@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgsql 
+  labels:
+    app: pgsql 
+spec:
+  ports:
+  - port: 5432
+    name: pgsql
+  clusterIP: None
+  selector:
+    app: pgsql
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pgsql-statefulset
+  labels:
+    app: pgsql
+spec:
+  serviceName: "pgsql"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgsql
+  template:
+    metadata:
+      labels:
+        app: pgsql
+    spec:
+      containers:
+      - name: pgsql
+        image: bitnami/postgresql:latest
+        env:
+          - name: POSTGRESQL_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: pgsql-db-creds
+                key: username
+          - name: POSTGRESQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: pgsql-db-creds
+                key: password
+          - name: POSTGRESQL_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: pgsql-db-creds
+                key: database
+        ports:
+        - containerPort: 5432
+          name: pgsqldb
+        volumeMounts:
+        - name: pgsql-pv
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: pgsql-pv
+        persistentVolumeClaim:
+          claimName: pgsql-pvc
