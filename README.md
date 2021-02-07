@@ -1,12 +1,12 @@
-# stack-io-assignment
+# devops-assignment
 
 ## 📖 About 
 
 This solution has two components:
-- Database: a PostgreSQL database, which is created using a Kubernetes Statefulset
-- Application: a simple Flask (Python) web app, which is deployed using Kubernetes Deployments
+- Database: a PostgreSQL database, which is created using a Kubernetes Statefulset. See more [here](database/README.md)
+- Application: a simple Flask (Python) web app, which is deployed using Kubernetes Deployments. See more [here](database/README.md)
 
-## 🤖 Quickstart
+## 🤖 Setup 
 During the development of the solution, I used [Minikube](https://minikube.sigs.k8s.io/docs/). It allows us to quickly set up a local Kubernetes cluster for testing purposes.
 
 To create a new cluster:
@@ -37,4 +37,9 @@ kubectl create -f database/
 To deploy the app, run:
 ```bash
 kubectl create -f app/
+```
+
+In order to access the aplication, the IP for the nodePort service can be found by running:
+```bash
+minikube service list --url simple-app
 ```
