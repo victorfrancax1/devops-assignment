@@ -5,8 +5,10 @@ metadata:
   labels:
     app: simple-app
 spec:
+  type: NodePort
   ports:
   - port: 8005
+    nodePort: 30005
     name: simple-app
   selector:
     app: simple-app
