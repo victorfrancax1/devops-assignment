@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: pgsql
-        image: bitnami/postgresql:latest
+        image: vfrancax1/postgresql
         env:
           - name: POSTGRESQL_USERNAME
             valueFrom:
