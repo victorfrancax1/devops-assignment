@@ -37,11 +37,20 @@ spec:
                 key: database
           - name: POSTGRES_HOST
             value: pgsql
+        readinessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          httpGet:
+            path: /
+            port: 8005
         resources:
           requests:
-            memory: 128M
-            cpu: 50m
+            memory: 32M
+            cpu: 30m
           limits:
-            memory: 1024M
-            cpu: 200m
-
+            memory: 128M
+            cpu: 100m
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 50%
