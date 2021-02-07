@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-app
+  labels:
+    app: simple-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: simple-app
+  template:
+    metadata:
+      labels:
+        app: simple-app 
+    spec:
+      containers:
+      - name: simple-app
+        image: vfrancax1/simple-app
+        ports:
+        - containerPort: 8005
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: pgsql-db-creds
+                key: username
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: pgsql-db-creds
+                key: password
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: pgsql-db-creds
+                key: database
+          - name: POSTGRES_HOST
+            value: pgsql
+        resources:
+          requests:
+            memory: 128M
+            cpu: 50m
+          limits:
+            memory: 1024M
+            cpu: 200m
+
