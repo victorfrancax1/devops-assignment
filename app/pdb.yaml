@@ -3,7 +3,7 @@ kind: PodDisruptionBudget
 metadata:
   name: simple-app
 spec:
-  minAvailable: 2
+  minAvailable: 1
   selector:
     matchLabels:
       app: simple-app
