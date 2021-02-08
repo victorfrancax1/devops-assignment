@@ -1,2 +1,2 @@
-FROM bitnami/postgresql:latest
+FROM postgres
 ADD init.sql  /docker-entrypoint-initdb.d/

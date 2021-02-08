@@ -31,19 +31,19 @@ spec:
     spec:
       containers:
       - name: pgsql
-        image: vfrancax1/postgresql
+        image: vfrancax1/postgres
         env:
-          - name: POSTGRESQL_USERNAME
+          - name: POSTGRES_USER
             valueFrom:
               secretKeyRef:
                 name: pgsql-db-creds
                 key: username
-          - name: POSTGRESQL_PASSWORD
+          - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: pgsql-db-creds
                 key: password
-          - name: POSTGRESQL_DATABASE
+          - name: POSTGRES_DB
             valueFrom:
               secretKeyRef:
                 name: pgsql-db-creds
